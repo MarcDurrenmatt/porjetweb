@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+   <script src="src/leaflet.geometryutil.js"></script>
+
+   
+	
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div  <div id="map" style="width: 1800px; height: 1000px;"></div>
+<script>
+
+	markers = [];
+	var mymap = L.map('map').setView([51.505, -0.09], 13);
+
+	
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		maxZoom: 18,
+		id: 'mapbox.streets',
+		accessToken: 'pk.eyJ1IjoibWFyY2R1cnJlbm1hdHQiLCJhIjoiY2p4MmFmY21yMGgxZzQ5cWYzYzN5YnA3NSJ9.XAT5P6nD3KEOwvcZHEb6Kw'
+	}).addTo(mymap);
+	
+
+	 L.GeometryUtil.closestLayer
+
+
+function onMapClick(e) {
+
+    var icon = 1;
+	
+   
+	var latc=e.latlng.lat;
+	var lngc=e.latlng.lng;
+//mymap.eachLayer(function(layer){
+console.log(les5(longueur(idstore,latc,lngc)));
+    console.log(compar(les5(longueur(idstore,latc,lngc)),longueur(idstore,latc,lngc)));
+    distance=longueur(idstore,latc,lngc).sort();
+    console.log(distance[0]);
+    dist=distance[0]
+    dist1=distance[1]
+    dist2=distance[2]
+    dist3=distance[3]
+    dist4=distance[4]
+    var plusproche = compar(les5(longueur(idstore,latc,lngc)),longueur(idstore,latc,lngc));
+    console.log(mini(longueur(idstore,latc,lngc)));
+    num=plusproche[0];
+    num1=plusproche[1];
+    num2=plusproche[2];
+    num3=plusproche[3];
+    num4=plusproche[4];
+    console.log(plusproche[0]);
+    lat=idstore[plusproche[0]];
+    lng=idstore[plusproche[0]+1];
+    lat1=idstore[plusproche[1]];
+    lng1=idstore[plusproche[1]+1];
+    lat2=idstore[plusproche[2]];
+    lng2=idstore[plusproche[2]+1];
+    lat3=idstore[plusproche[3]];
+    lng3=idstore[plusproche[3]+1];
+    lat4=idstore[plusproche[4]];
+    lng4=idstore[plusproche[4]+1];
+     var myWindow = window.open('child.html?lat=' + lat + '&lng=' + lng + '&dist=' + dist + '&num=' + num + '&lat1=' + lat1 + '&lng1=' + lng1 + '&lat2=' + lat2 + '&lng2=' + lng2 + '&lat3=' + lat3 + '&lng3=' + lng3 + '&lat4=' + lat4 + '&lng4=' + lng4 + '&num1=' + num1 + '&num2=' + num2 + '&num3=' + num3 + '&num4=' + num4 + '&dist1=' + dist1 + '&dist2=' + dist2 + '&dist3=' + dist3 + '&dist4=' + dist4, "MsgWindow", "width=400,height=200");
+//});
+    
+    
+    };
+	
+ function flyToLatLng(lat, lng) {
+    mymap.flyTo([lat, lng], 15);
+ };
+
+mymap.on('click', onMapClick);
+var idstore = [];
+$.getJSON("defi.geojson",function(data){
+    // add GeoJSON layer to the map once the file is loaded
+    L.geoJson(data,{
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.adresse);
+		idstore.push(layer.getLatLng().lat);
+		idstore.push(layer.getLatLng().lng);
+        }
+    }).addTo(mymap);
+});
+function longueur(liste,lat,lng) {
+	var l = [];
+	for(i=0;i<liste.length;i++){
+		if(i%2==0){
+		l.push(((liste[i]-lat)*(liste[i]-lat))*1/2+((liste[i+1]-lng)*(liste[i+1]-lng))*1/2);}
+		}
+		return l
+};
+
+function mini(liste){
+	var ll = []
+      min=liste[0];
+	for(i=0;i<liste.length;i++){
+		if(liste[i]<min){
+		min=liste[i];
+		cpt=i;
+	}
+	
+}ll.push(min);
+ll.push(cpt*2);
+return ll;
+};
+
+function les5(liste){
+var classe=[]
+	classe=liste.sort();
+	return classe;
+};
+
+function compar(liste1,liste2){
+var ll = [];
+		for(j=0;j<5;j++){
+			for(i=0;i<liste2.length;i++){
+				if(liste1[j]==liste2[i]){
+					ll.push(i*2);
+				}
+			}
+	}return ll
+};
+</script>
+
+
+
+</body>
+</html>
