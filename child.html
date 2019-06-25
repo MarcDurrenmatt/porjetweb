@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MsgWindow</title>
+   <meta charset="utf-8" />
+</head>
+<body>
+<p> Premier Défibrillateur <img src="marker-icon-blue.png"> <p>
+<p id="dist" > <p id="num" ></p></p>
+<p id="latlng" style="background-color: #E5E5E5; cursor: pointer"></p>
+<p> Second Défibrillateur <img src="marker-icon-blue.png"> <p>
+<p id="dist1" > <p id="num1" ></p></p>
+<p id="latlng1" style="background-color: #E5E5E5; cursor: pointer"></p>
+<p> Troisieme Défibrillateur <img src="marker-icon-blue.png"> <p>
+<p id="dist2" > <p id="num2" ></p></p>
+<p id="latlng2" style="background-color: #E5E5E5; cursor: pointer"></p>
+<p> Quatrieme Défibrillateur <img src="marker-icon-blue.png"> <p>
+<p id="dist3" > <p id="num3" ></p></p>
+<p id="latlng3" style="background-color: #E5E5E5; cursor: pointer"></p>
+<p> Cinquieme Défibrillateur <img src="marker-icon-blue.png"> <p>
+<p id="dist4" > <p id="num4" ></p></p>
+<p id="latlng4" style="background-color: #E5E5E5; cursor: pointer"></p>
+<script>
+  // je recupere lat et lng
+  var lat = location.search.match(/lat=([^&]+)/)[1]; 
+  var lng = location.search.match(/lng=([^&]+)/)[1];
+  var dist = location.search.match(/dist=([^&]+)/)[1];
+  var lat1 = location.search.match(/lat1=([^&]+)/)[1]; 
+  var lng1 = location.search.match(/lng1=([^&]+)/)[1];
+  var lat2 = location.search.match(/lat2=([^&]+)/)[1]; 
+  var lng2 = location.search.match(/lng2=([^&]+)/)[1];
+    var lat3 = location.search.match(/lat3=([^&]+)/)[1]; 
+  var lng3 = location.search.match(/lng3=([^&]+)/)[1];
+    var lat4 = location.search.match(/lat4=([^&]+)/)[1]; 
+  var lng4 = location.search.match(/lng4=([^&]+)/)[1];
+    var num = location.search.match(/num=([^&]+)/)[1];
+        var num1 = location.search.match(/num1=([^&]+)/)[1];
+	      var num2 = location.search.match(/num2=([^&]+)/)[1];
+		    var num3 = location.search.match(/num3=([^&]+)/)[1];
+		    var num4 = location.search.match(/num4=([^&]+)/)[1];
+var dist1 = location.search.match(/dist1=([^&]+)/)[1];
+var dist2 = location.search.match(/dist2=([^&]+)/)[1];
+var dist3 = location.search.match(/dist3=([^&]+)/)[1];
+var dist4 = location.search.match(/dist4=([^&]+)/)[1];
+  //if( icon==1){
+  document.getElementById('latlng').innerHTML = lat + ', ' + lng;
+  document.getElementById('latlng1').innerHTML = lat1 + ', ' + lng1;
+  document.getElementById('latlng2').innerHTML = lat2 + ', ' + lng2;
+    document.getElementById('latlng3').innerHTML = lat2 + ', ' + lng2;
+      document.getElementById('latlng4').innerHTML = lat2 + ', ' + lng2;
+	      document.getElementById('dist').innerHTML = 'Distance à partir du clic :' + dist;
+		document.getElementById('num').innerHTML = 'Défibrillateur numéro : ' + num;
+	      document.getElementById('dist1').innerHTML = 'Distance à partir du clic :' + dist1;
+		document.getElementById('num1').innerHTML = 'Défibrillateur numéro : ' + num1;
+			      document.getElementById('dist2').innerHTML = 'Distance à partir du clic :' + dist2;
+		document.getElementById('num2').innerHTML = 'Défibrillateur numéro : ' + num2;
+			      document.getElementById('dist3').innerHTML = 'Distance à partir du clic :' + dist3;
+		document.getElementById('num3').innerHTML = 'Défibrillateur numéro : ' + num3;
+			      document.getElementById('dist4').innerHTML = 'Distance à partir du clic :' + dist4;
+						document.getElementById('num4').innerHTML = 'Défibrillateur numéro : ' + num4;
+
+//}
+  document.getElementById('latlng').addEventListener('click', function() {
+    window.opener.flyToLatLng(lat, lng);
+  });
+    document.getElementById('latlng1').addEventListener('click', function() {
+    window.opener.flyToLatLng(lat1, lng1);
+  });
+   document.getElementById('latlng2').addEventListener('click', function() {
+    window.opener.flyToLatLng(lat2, lng2);
+  });
+     document.getElementById('latlng3').addEventListener('click', function() {
+    window.opener.flyToLatLng(lat3, lng3);
+  });
+     document.getElementById('latlng4').addEventListener('click', function() {
+    window.opener.flyToLatLng(lat4, lng4);
+  });
+</script>
+
+</body>
+</html>
